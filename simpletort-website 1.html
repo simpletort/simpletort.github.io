@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SimpleTort™ — AI-Powered Mass Tort Litigation Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Source+Sans+3:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:       #1B3A52;
+      --navy-dark:  #122839;
+      --navy-mid:   #254e6e;
+      --blue:       #2F7BAD;
+      --blue-light: #4A9EC9;
+      --accent:     #5BBCD6;
+      --sky:        #E6F4FB;
+      --sky-light:  #F4FAFD;
+      --white:      #FFFFFF;
+      --gray-50:    #F8FAFB;
+      --gray-100:   #EEF2F5;
+      --gray-300:   #C4D1DA;
+      --gray-500:   #6B8699;
+      --gray-700:   #3D5568;
+      --text:       #1B3A52;
+      --font:       'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif:      'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius:     12px;
+      --radius-lg:  20px;
+      --shadow:     0 4px 24px rgba(27,58,82,0.10);
+      --shadow-lg:  0 12px 48px rgba(27,58,82,0.16);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--text); background: var(--white); line-height: 1.6; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── Typography ─── */
+    h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; font-family: 'DM Sans', sans-serif; }
+    .eyebrow {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+
+    /* ─── Layout ─── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section-sm { padding: 64px 0; }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 8px; font-weight: 600;
+      font-size: 0.95rem; transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--white);
+      box-shadow: 0 4px 16px rgba(91,188,214,0.35);
+    }
+    .btn-primary:hover { background: #49b3cc; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(91,188,214,0.45); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 2px solid rgba(255,255,255,0.45);
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+    .btn-lg { padding: 16px 36px; font-size: 1.05rem; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(27,58,82,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; max-width: 1160px; margin: 0 auto; height: 70px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-text {
+      font-size: 1.25rem; font-weight: 600; color: var(--white);
+      letter-spacing: -0.01em; font-family: 'Source Sans 3', sans-serif;
+    }
+    .nav-logo-text span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { color: rgba(255,255,255,0.75); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-mid) 100%);
+      padding: 160px 0 100px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(91,188,214,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(91,188,214,0.15); border: 1px solid rgba(91,188,214,0.35);
+      color: var(--accent); font-size: 0.78rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 100px; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; }
+    .hero h1 {
+      font-size: 3.2rem; color: var(--white); margin-bottom: 20px;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; line-height: 1.15;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.72); margin-bottom: 40px;
+      line-height: 1.7; max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 56px; padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat-num {
+      font-size: 2rem; font-weight: 800; color: var(--white); line-height: 1;
+    }
+    .hero-stat-num span { color: var(--accent); }
+    .hero-stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+    /* ─── Hero Visual ─── */
+    .hero-visual { position: relative; }
+    .dashboard-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      backdrop-filter: blur(8px);
+    }
+    .dash-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .dash-title { color: rgba(255,255,255,0.9); font-weight: 600; font-size: 0.9rem; }
+    .dash-badge { background: rgba(91,188,214,0.2); color: var(--accent); font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+    .dash-stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+    .dash-stat {
+      background: rgba(255,255,255,0.06); border-radius: 10px; padding: 14px;
+      text-align: center;
+    }
+    .dash-stat-n { font-size: 1.5rem; font-weight: 800; color: var(--white); }
+    .dash-stat-l { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .dash-pipeline { display: flex; flex-direction: column; gap: 8px; }
+    .pipeline-row {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px 14px;
+    }
+    .pipeline-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .pipeline-label { flex: 1; font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+    .pipeline-count { font-size: 0.78rem; font-weight: 700; color: var(--white); }
+    .pipeline-bar-wrap { width: 60px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .pipeline-bar { height: 100%; border-radius: 2px; }
+
+    /* Floating card */
+    .float-card {
+      position: absolute; bottom: -20px; right: -24px;
+      background: var(--white); border-radius: var(--radius);
+      padding: 14px 18px; box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .float-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--blue));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .float-label { font-size: 0.7rem; color: var(--gray-500); }
+    .float-value { font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+
+    /* ─── TRUST BAR ─── */
+    .trust-bar {
+      background: var(--gray-50); border-top: 1px solid var(--gray-100);
+      border-bottom: 1px solid var(--gray-100); padding: 20px 0;
+    }
+    .trust-inner {
+      display: flex; align-items: center; justify-content: center; gap: 48px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; font-weight: 600; color: var(--gray-500);
+    }
+
+    /* ─── ABOUT ─── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-text h2 { font-size: 2.4rem; margin-bottom: 20px; }
+    .about-text p { color: var(--gray-700); margin-bottom: 16px; font-size: 1.02rem; line-height: 1.75; }
+    .about-checklist { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .about-check {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.95rem; color: var(--gray-700);
+    }
+    .check-icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--sky); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .check-icon svg { width: 12px; height: 12px; }
+    .about-visual { position: relative; }
+    .about-img-box {
+      border-radius: var(--radius-lg); overflow: hidden;
+      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+      padding: 40px; min-height: 420px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .lifecycle-steps { display: flex; flex-direction: column; gap: 0; }
+    .lifecycle-step {
+      display: flex; align-items: flex-start; gap: 16px; position: relative;
+    }
+    .lifecycle-step:not(:last-child)::after {
+      content: ''; position: absolute; left: 15px; top: 32px;
+      width: 2px; height: calc(100%); background: rgba(255,255,255,0.12);
+    }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%; background: rgba(91,188,214,0.2);
+      border: 2px solid rgba(91,188,214,0.4); display: flex; align-items: center;
+      justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--accent);
+      flex-shrink: 0; z-index: 1; position: relative;
+    }
+    .step-content { padding-bottom: 24px; }
+    .step-title { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+    .step-desc { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 3px; }
+
+    /* ─── FEATURES ─── */
+    .features { background: var(--sky-light); }
+    .features-header { text-align: center; max-width: 640px; margin: 0 auto 60px; }
+    .features-header h2 { font-size: 2.4rem; margin: 12px 0; }
+    .features-header p { color: var(--gray-700); font-size: 1.05rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .feature-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 32px; border: 1px solid var(--gray-100);
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(91,188,214,0.04), transparent);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(91,188,214,0.3); }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 14px; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+    }
+    .feature-card h3 { font-size: 1.05rem; margin-bottom: 10px; }
+    .feature-card p { font-size: 0.9rem; color: var(--gray-700); line-height: 1.65; }
+    .feature-tag {
+      display: inline-flex; margin-top: 16px;
+      font-size: 0.72rem; font-weight: 600; color: var(--blue);
+      background: var(--sky); padding: 4px 10px; border-radius: 20px;
+    }
+    .icon-blue   { background: linear-gradient(135deg, #E6F4FB, #D0ECF8); }
+    .icon-teal   { background: linear-gradient(135deg, #E0F8F8, #C8F2F2); }
+    .icon-gold   { background: linear-gradient(135deg, #FFF8E8, #FFF0D0); }
+    .icon-green  { background: linear-gradient(135deg, #E8FAF0, #D0F5E4); }
+    .icon-purple { background: linear-gradient(135deg, #F0EEF8, #E4E0F5); }
+    .icon-red    { background: linear-gradient(135deg, #FEF0EE, #FDDDD9); }
+
+    /* ─── WORKFLOW ─── */
+    .workflow-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+    .workflow-header h2 { font-size: 2.4rem; margin: 12px 0; }
+    .workflow-header p { color: var(--gray-700); font-size: 1.05rem; }
+    .workflow-track {
+      position: relative;
+      display: flex; align-items: flex-start; justify-content: space-between;
+    }
+    .workflow-track::before {
+      content: ''; position: absolute; top: 28px; left: 5%; right: 5%;
+      height: 2px; background: linear-gradient(90deg, var(--accent), var(--blue), var(--navy));
+      z-index: 0;
+    }
+    .wf-step {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      text-align: center; position: relative; z-index: 1; padding: 0 8px;
+    }
+    .wf-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--white); border: 3px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 800; color: var(--navy);
+      box-shadow: 0 0 0 6px var(--sky-light); margin-bottom: 16px;
+    }
+    .wf-step h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; }
+    .wf-step p { font-size: 0.78rem; color: var(--gray-500); line-height: 1.5; }
+
+    /* ─── OUTCOMES ─── */
+    .outcomes { background: var(--navy); }
+    .outcomes-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+    .outcomes-header h2 { font-size: 2.4rem; margin: 12px 0; color: var(--white); }
+    .outcomes-header p { color: rgba(255,255,255,0.65); font-size: 1.05rem; }
+    .outcomes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .outcome-card {
+      background: rgba(255,255,255,0.04); padding: 40px 28px;
+      text-align: center; transition: background 0.2s;
+    }
+    .outcome-card:hover { background: rgba(255,255,255,0.08); }
+    .outcome-num { font-size: 3rem; font-weight: 800; color: var(--white); line-height: 1; }
+    .outcome-num span { color: var(--accent); }
+    .outcome-label { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 8px; line-height: 1.4; }
+    .outcome-icon { font-size: 1.8rem; margin-bottom: 12px; }
+
+    /* ─── WHO ─── */
+    .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .who-card {
+      border-radius: var(--radius-lg); padding: 32px;
+      border: 1.5px solid var(--gray-100); transition: all 0.25s;
+    }
+    .who-card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+    .who-role {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 12px; color: var(--blue);
+    }
+    .who-card h3 { font-size: 1.05rem; margin-bottom: 12px; }
+    .who-card p { font-size: 0.9rem; color: var(--gray-700); line-height: 1.65; }
+    .who-pains { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .who-pain {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; color: var(--gray-700);
+    }
+    .pain-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    /* ─── SECURITY ─── */
+    .security { background: var(--sky-light); }
+    .security-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .security-text h2 { font-size: 2.4rem; margin: 12px 0 20px; }
+    .security-text p { color: var(--gray-700); font-size: 1.02rem; line-height: 1.75; margin-bottom: 16px; }
+    .security-badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .sec-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: 10px; padding: 10px 16px;
+      font-size: 0.82rem; font-weight: 600; color: var(--navy);
+      box-shadow: 0 2px 8px rgba(27,58,82,0.06);
+    }
+    .security-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .sec-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 24px; border: 1px solid var(--gray-100); text-align: center;
+    }
+    .sec-card-icon { font-size: 2rem; margin-bottom: 10px; }
+    .sec-card h4 { font-size: 0.9rem; margin-bottom: 6px; }
+    .sec-card p { font-size: 0.78rem; color: var(--gray-500); line-height: 1.5; }
+
+    /* ─── INTEGRATIONS ─── */
+    .integrations-header { text-align: center; max-width: 560px; margin: 0 auto 56px; }
+    .integrations-header h2 { font-size: 2.4rem; margin: 12px 0; }
+    .integrations-header p { color: var(--gray-700); font-size: 1.02rem; }
+    .int-categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .int-category {
+      background: var(--white); border: 1px solid var(--gray-100);
+      border-radius: var(--radius-lg); padding: 28px;
+      transition: all 0.22s;
+    }
+    .int-category:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-3px); }
+    .int-cat-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--sky); display: flex; align-items: center;
+      justify-content: center; font-size: 1.4rem; margin-bottom: 14px;
+    }
+    .int-cat-title { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .int-cat-desc { font-size: 0.83rem; color: var(--gray-500); line-height: 1.55; margin-bottom: 14px; }
+    .int-cat-examples {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .int-example {
+      font-size: 0.72rem; font-weight: 600; color: var(--blue);
+      background: var(--sky); padding: 3px 10px; border-radius: 20px;
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(91,188,214,0.12) 0%, transparent 70%);
+    }
+    .cta-inner { text-align: center; position: relative; z-index: 1; }
+    .cta-inner h2 { font-size: 2.8rem; color: var(--white); margin: 16px 0; font-family: 'DM Sans', sans-serif; }
+    .cta-inner p { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto 40px; }
+    .cta-form {
+      display: flex; gap: 12px; max-width: 480px; margin: 0 auto;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      padding: 6px 6px 6px 20px; border-radius: 12px;
+    }
+    .cta-form input {
+      flex: 1; background: transparent; border: none; outline: none;
+      color: var(--white); font-size: 0.95rem; font-family: var(--font);
+    }
+    .cta-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .cta-note { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 14px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy-dark);
+      padding: 64px 0 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
+    .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.88rem; line-height: 1.7; margin-top: 14px; max-width: 260px; }
+    .footer-col h5 { color: rgba(255,255,255,0.9); font-size: 0.85rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07); padding-top: 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 0.8rem; color: rgba(255,255,255,0.3); transition: color 0.2s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hero-grid, .about-grid, .security-grid { grid-template-columns: 1fr; }
+      .hero-visual, .about-visual { display: none; }
+      .features-grid, .int-categories { grid-template-columns: 1fr 1fr; }
+      .outcomes-grid { grid-template-columns: repeat(2,1fr); }
+      .who-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero h1 { font-size: 2.4rem; }
+      .workflow-track::before { display: none; }
+      .workflow-track { flex-direction: column; gap: 24px; }
+      .wf-step { flex-direction: row; text-align: left; align-items: flex-start; }
+      .wf-num { margin-bottom: 0; margin-right: 16px; flex-shrink: 0; }
+    }
+    @media (max-width: 600px) {
+      .features-grid, .who-grid, .int-categories { grid-template-columns: 1fr; }
+      .outcomes-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ NAV ══════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="19" cy="19" r="18" stroke="#5BBCD6" stroke-width="1.5" fill="rgba(91,188,214,0.08)"/>
+        <line x1="19" y1="10" x2="19" y2="28" stroke="#5BBCD6" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="11" y1="14" x2="27" y2="14" stroke="#5BBCD6" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M11 14 L8 19 Q11 21.5 14 19 Z" stroke="#5BBCD6" stroke-width="1.2" fill="rgba(91,188,214,0.18)"/>
+        <path d="M27 14 L24 19 Q27 21.5 30 19 Z" stroke="#5BBCD6" stroke-width="1.2" fill="rgba(91,188,214,0.18)"/>
+        <line x1="15" y1="28" x2="23" y2="28" stroke="#5BBCD6" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span class="nav-logo-text">Simple<span>Tort</span>™</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#workflow">How It Works</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#security">Security</a>
+      <a href="#integrations">Integrations</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#demo" class="btn btn-outline" style="padding:10px 20px;font-size:0.85rem;">Sign In</a>
+      <a href="#demo" class="btn btn-primary" style="padding:10px 20px;font-size:0.85rem;">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge">AI-Powered · Mass Tort · Litigation Workflow</div>
+        <h1>Run <em>Mass Tort</em> Campaigns at Scale</h1>
+        <p class="hero-sub">
+          SimpleTort is the end-to-end litigation management platform built for high-volume plaintiff law firms.
+          From lead qualification to settlement disbursement, every case stage is automated, AI-assisted, and
+          built for your entire team.
+        </p>
+        <div class="hero-actions">
+          <a href="#demo" class="btn btn-primary btn-lg">Request a Demo ↗</a>
+          <a href="#workflow" class="btn btn-outline btn-lg">See How It Works</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">~30<span>%</span></div>
+            <div class="hero-stat-label">Reduction in<br>paralegal hours</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">&lt;48<span>h</span></div>
+            <div class="hero-stat-label">Lead to qualified<br>case status</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">10K<span>+</span></div>
+            <div class="hero-stat-label">Concurrent case<br>capacity</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard mockup -->
+      <div class="hero-visual">
+        <div class="dashboard-card">
+          <div class="dash-header">
+            <span class="dash-title">📋 Case Pipeline Overview</span>
+            <span class="dash-badge">Live</span>
+          </div>
+          <div class="dash-stat-row">
+            <div class="dash-stat">
+              <div class="dash-stat-n">247</div>
+              <div class="dash-stat-l">Active Cases</div>
+            </div>
+            <div class="dash-stat">
+              <div class="dash-stat-n">38</div>
+              <div class="dash-stat-l">Pending Review</div>
+            </div>
+            <div class="dash-stat">
+              <div class="dash-stat-n" style="color:#5BBCD6">12</div>
+              <div class="dash-stat-l">Settlements</div>
+            </div>
+          </div>
+          <div class="dash-pipeline">
+            <div class="pipeline-row">
+              <div class="pipeline-dot" style="background:#5BBCD6"></div>
+              <span class="pipeline-label">New Leads</span>
+              <span class="pipeline-count">54</span>
+              <div class="pipeline-bar-wrap"><div class="pipeline-bar" style="width:80%;background:#5BBCD6"></div></div>
+            </div>
+            <div class="pipeline-row">
+              <div class="pipeline-dot" style="background:#4A9EC9"></div>
+              <span class="pipeline-label">Pending Paralegal Review</span>
+              <span class="pipeline-count">38</span>
+              <div class="pipeline-bar-wrap"><div class="pipeline-bar" style="width:60%;background:#4A9EC9"></div></div>
+            </div>
+            <div class="pipeline-row">
+              <div class="pipeline-dot" style="background:#FFB347"></div>
+              <span class="pipeline-label">Pending Attorney Review</span>
+              <span class="pipeline-count">21</span>
+              <div class="pipeline-bar-wrap"><div class="pipeline-bar" style="width:40%;background:#FFB347"></div></div>
+            </div>
+            <div class="pipeline-row">
+              <div class="pipeline-dot" style="background:#5ED9A0"></div>
+              <span class="pipeline-label">Filed</span>
+              <span class="pipeline-count">87</span>
+              <div class="pipeline-bar-wrap"><div class="pipeline-bar" style="width:90%;background:#5ED9A0"></div></div>
+            </div>
+            <div class="pipeline-row">
+              <div class="pipeline-dot" style="background:#A48FE8"></div>
+              <span class="pipeline-label">Settlement Phase</span>
+              <span class="pipeline-count">12</span>
+              <div class="pipeline-bar-wrap"><div class="pipeline-bar" style="width:25%;background:#A48FE8"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="float-card">
+          <div class="float-icon">🤖</div>
+          <div>
+            <div class="float-label">AI Medical Processing</div>
+            <div class="float-value">Completed in 1m 42s</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TRUST BAR ══════════════════════ -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      HIPAA Compliant
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Cloud-Native Infrastructure
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Multi-Campaign Support
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      SOC 2 Type II Ready
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      AI-Powered Workflows
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ ABOUT ══════════════════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="eyebrow">What is SimpleTort</p>
+        <h2>Purpose-Built for High-Volume Plaintiff Law Firms</h2>
+        <p>SimpleTort is a complete litigation management platform engineered for law firms running large-scale mass tort campaigns — from environmental and pharmaceutical cases to occupational injury and consumer product litigation.</p>
+        <p>We replace fragmented spreadsheets, siloed tools, and manual handoffs with a single intelligent system. From the first marketing lead to final settlement disbursement, every task, deadline, document, and communication is tracked, automated, and surfaced to the right person at the right time.</p>
+        <div class="about-checklist">
+          <div class="about-check">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#2F7BAD" stroke-width="2.2"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <span>AI-extracted medical summaries from clinical and specialty records in minutes</span>
+          </div>
+          <div class="about-check">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#2F7BAD" stroke-width="2.2"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <span>Automated deadline tracking for filing windows, enrollment periods, and court dates</span>
+          </div>
+          <div class="about-check">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#2F7BAD" stroke-width="2.2"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <span>Role-based workflows for admin staff, paralegals, junior and senior partners</span>
+          </div>
+          <div class="about-check">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#2F7BAD" stroke-width="2.2"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <span>Integrated settlement calculator synced to your accounting system in real time</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lifecycle visual -->
+      <div class="about-visual">
+        <div class="about-img-box">
+          <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:24px;">Case Lifecycle</p>
+          <div class="lifecycle-steps">
+            <div class="lifecycle-step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Lead Intake & Qualification</div>
+                <div class="step-desc">Marketing intake → eligibility screening → client onboarding trigger</div>
+              </div>
+            </div>
+            <div class="lifecycle-step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Document Collection</div>
+                <div class="step-desc">Guided client portal, document checklist, completeness verification</div>
+              </div>
+            </div>
+            <div class="lifecycle-step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">AI Medical Processing</div>
+                <div class="step-desc">Record analysis → diagnosis extraction → AI qualification score</div>
+              </div>
+            </div>
+            <div class="lifecycle-step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Program Enrollment & Deadlines</div>
+                <div class="step-desc">Automated tracking, enrollment status updates, critical alerts</div>
+              </div>
+            </div>
+            <div class="lifecycle-step">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <div class="step-title">Attorney Review & Filing</div>
+                <div class="step-desc">Paralegal → junior partner → senior partner structured approval chain</div>
+              </div>
+            </div>
+            <div class="lifecycle-step" style="padding-bottom:0">
+              <div class="step-num">6</div>
+              <div class="step-content">
+                <div class="step-title">Settlement & Disbursement</div>
+                <div class="step-desc">Award calculation, accounting sync, disbursement to client and firm</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FEATURES ══════════════════════ -->
+<section class="section features" id="features">
+  <div class="container">
+    <div class="features-header">
+      <p class="eyebrow">Platform Capabilities</p>
+      <h2>Everything your firm needs, built in</h2>
+      <p>Six integrated modules covering every stage of mass tort litigation — all in a single platform designed to scale across hundreds or thousands of concurrent cases.</p>
+    </div>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon icon-blue">🧲</div>
+        <h3>Lead Intake & Screening</h3>
+        <p>Automated ingestion from marketing partners via API. Eligibility criteria checks run at intake. Qualified leads trigger client onboarding automatically — zero manual triage required at volume.</p>
+        <span class="feature-tag">Lead Management</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-teal">🤖</div>
+        <h3>AI Medical Processing</h3>
+        <p>Advanced document AI extracts diagnoses, specialist findings, and injury data from medical records in under two minutes. AI-generated summaries surface exactly what paralegals and attorneys need to act.</p>
+        <span class="feature-tag">Powered by AI</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-gold">⚖️</div>
+        <h3>Attorney Review Workflow</h3>
+        <p>Structured multi-tier approval chains route cases from paralegal to junior partner to senior partner. Escalation paths, case notes, and counsel-change workflows are fully configurable per campaign.</p>
+        <span class="feature-tag">Legal Workflow</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-green">📅</div>
+        <h3>Deadline & Compliance Automation</h3>
+        <p>Never miss a critical date. SimpleTort tracks filing windows, enrollment deadlines, and court-imposed dates — with automated alerts routed to the right team member before they become problems.</p>
+        <span class="feature-tag">Deadline Tracking</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-purple">💰</div>
+        <h3>Settlement Calculator & Financials</h3>
+        <p>Built-in settlement calculator with real-time breakdown of fees, medical liens, and client proceeds. Synced with your accounting platform so books stay current from award through final disbursement.</p>
+        <span class="feature-tag">Financial Management</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon icon-red">📊</div>
+        <h3>Analytics & Campaign Dashboard</h3>
+        <p>Senior partners get campaign-level visibility: pipeline health, paralegal workload distribution, settlement velocity, and revenue forecasts. Run your mass tort practice on data, not guesswork.</p>
+        <span class="feature-tag">Analytics</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ WORKFLOW ══════════════════════ -->
+<section class="section" id="workflow">
+  <div class="container">
+    <div class="workflow-header">
+      <p class="eyebrow">How It Works</p>
+      <h2>From first contact to final settlement</h2>
+      <p>SimpleTort handles your entire case pipeline in six automated stages — with AI assistance and structured human review checkpoints at every step.</p>
+    </div>
+    <div class="workflow-track">
+      <div class="wf-step">
+        <div class="wf-num">01</div>
+        <h4>Lead Captured</h4>
+        <p>Intake from marketing partner. Auto-screened against campaign eligibility criteria.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">02</div>
+        <h4>Client Onboarded</h4>
+        <p>Portal link issued. Client completes intake questionnaire and uploads required documents.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">03</div>
+        <h4>AI Processes Records</h4>
+        <p>Medical and supporting documents analyzed by AI. Qualification score generated in minutes.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">04</div>
+        <h4>Paralegal Reviews</h4>
+        <p>Auto-assigned paralegal reviews AI summary, verifies document completeness, advances case.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">05</div>
+        <h4>Attorney Approves</h4>
+        <p>Junior partner reviews and signs off. Complex or high-value cases escalate to senior partner.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">06</div>
+        <h4>Settled & Disbursed</h4>
+        <p>Settlement calculated, accounting synced, disbursement tracked to client and firm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ OUTCOMES ══════════════════════ -->
+<section class="section outcomes" id="outcomes">
+  <div class="container">
+    <div class="outcomes-header">
+      <p class="eyebrow" style="color:var(--accent)">Measurable Results</p>
+      <h2>Built to deliver outcomes, not just features</h2>
+      <p>Every design decision in SimpleTort is grounded in operational targets validated with mass tort litigation teams.</p>
+    </div>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-icon">⏱️</div>
+        <div class="outcome-num">~30<span>%</span></div>
+        <div class="outcome-label">Reduction in paralegal hours per case through workflow automation</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">🎯</div>
+        <div class="outcome-num">&lt;48<span>h</span></div>
+        <div class="outcome-label">Lead-to-qualified time from intake submission to AI-scored case</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">🤖</div>
+        <div class="outcome-num">&lt;2<span>m</span></div>
+        <div class="outcome-label">Medical record processing — upload to AI summary available</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-icon">📉</div>
+        <div class="outcome-num">25<span>%</span></div>
+        <div class="outcome-label">Reduction in rework and manual correction errors across case workflows</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ WHO IT'S FOR ══════════════════════ -->
+<section class="section" id="users">
+  <div class="container">
+    <div style="text-align:center;max-width:600px;margin:0 auto 60px;">
+      <p class="eyebrow">Designed For Your Team</p>
+      <h2 style="font-size:2.4rem;margin:12px 0;">Every role gets exactly what they need</h2>
+      <p style="color:var(--gray-700);font-size:1.05rem;">SimpleTort's role-based system ensures the right information and actions reach each team member — without the noise that slows high-volume practices down.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-role">Admin Staff</div>
+        <h3>Streamlined Operations & Financials</h3>
+        <p>Manage client communications, track disbursement milestones, and coordinate post-settlement financial workflows — all from one organised dashboard with full audit visibility.</p>
+        <div class="who-pains">
+          <div class="who-pain"><span class="pain-dot"></span>Automated task assignment and routing</div>
+          <div class="who-pain"><span class="pain-dot"></span>Accounting-synced disbursement tracking</div>
+          <div class="who-pain"><span class="pain-dot"></span>Client communication logs in one place</div>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-role">Paralegal</div>
+        <h3>AI-Assisted Case Review at Scale</h3>
+        <p>Review AI-generated medical summaries, verify document checklists, manage enrollment deadlines, and communicate with clients — with automated queue management so nothing falls through the cracks.</p>
+        <div class="who-pains">
+          <div class="who-pain"><span class="pain-dot"></span>AI summaries and qualification scores</div>
+          <div class="who-pain"><span class="pain-dot"></span>Document completeness checker</div>
+          <div class="who-pain"><span class="pain-dot"></span>Auto-assigned and prioritised case queue</div>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-role">Attorney</div>
+        <h3>Fast, Confident Case Decisions</h3>
+        <p>Junior partners approve standard cases in seconds with AI-backed summaries. Senior partners oversee complex cases and full campaign performance through analytics dashboards and escalation controls.</p>
+        <div class="who-pains">
+          <div class="who-pain"><span class="pain-dot"></span>One-click structured approval workflow</div>
+          <div class="who-pain"><span class="pain-dot"></span>AI-assisted legal review summaries</div>
+          <div class="who-pain"><span class="pain-dot"></span>Campaign-level analytics dashboard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ SECURITY ══════════════════════ -->
+<section class="section security" id="security">
+  <div class="container">
+    <div class="security-grid">
+      <div class="security-text">
+        <p class="eyebrow">Security & Compliance</p>
+        <h2>Enterprise-grade security, built from day one</h2>
+        <p>SimpleTort handles sensitive Protected Health Information (PHI) and confidential legal records for thousands of clients. Our architecture was designed with HIPAA compliance, PHI encryption, and full audit logging as core requirements — not afterthoughts.</p>
+        <p>All PHI is encrypted at rest and in transit. Staff authenticate via your identity provider with mandatory multi-factor authentication. Every access event, status change, and document action is logged and auditable.</p>
+        <div class="security-badges">
+          <div class="sec-badge">🔐 HIPAA Compliant</div>
+          <div class="sec-badge">☁️ Cloud BAA Covered</div>
+          <div class="sec-badge">🔑 MFA Enforced</div>
+          <div class="sec-badge">📋 Full Audit Logs</div>
+          <div class="sec-badge">🔒 PHI Encryption</div>
+          <div class="sec-badge">🛡️ Role-Based Access</div>
+        </div>
+      </div>
+      <div class="security-visual">
+        <div class="sec-card">
+          <div class="sec-card-icon">🔐</div>
+          <h4>PHI Encryption</h4>
+          <p>All health information encrypted at rest with AES-256 and in transit via TLS 1.3</p>
+        </div>
+        <div class="sec-card">
+          <div class="sec-card-icon">👤</div>
+          <h4>Role-Based Access</h4>
+          <p>Fine-grained RBAC at API and data layers. Staff see only what their role permits</p>
+        </div>
+        <div class="sec-card">
+          <div class="sec-card-icon">📋</div>
+          <h4>Audit Trail</h4>
+          <p>Every PHI access, case change, and user action logged with timestamp and identity</p>
+        </div>
+        <div class="sec-card">
+          <div class="sec-card-icon">☁️</div>
+          <h4>Cloud Infrastructure</h4>
+          <p>Built on enterprise cloud with signed HIPAA BAA. Serverless, scalable, and always-on</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ INTEGRATIONS ══════════════════════ -->
+<section class="section" id="integrations" style="background:var(--sky-light);">
+  <div class="container">
+    <div class="integrations-header">
+      <p class="eyebrow">Integrations</p>
+      <h2>Connects with the tools you already use</h2>
+      <p>SimpleTort integrates natively across six categories of the legal tech stack — so your team never has to leave the workflow to get things done.</p>
+    </div>
+    <div class="int-categories">
+
+      <div class="int-category">
+        <div class="int-cat-icon">🧾</div>
+        <div class="int-cat-title">Accounting & Financials</div>
+        <div class="int-cat-desc">Sync settlements, disbursements, fee splits, and trust account transactions directly with your accounting platform. No manual re-entry.</div>
+        <div class="int-cat-examples">
+          <span class="int-example">QuickBooks</span>
+          <span class="int-example">Xero</span>
+          <span class="int-example">Sage</span>
+        </div>
+      </div>
+
+      <div class="int-category">
+        <div class="int-cat-icon">✍️</div>
+        <div class="int-cat-title">E-Signature</div>
+        <div class="int-cat-desc">Send, track, and collect signed retainer agreements, consent forms, and settlement approvals without leaving the platform. Full audit trail included.</div>
+        <div class="int-cat-examples">
+          <span class="int-example">DocuSign</span>
+          <span class="int-example">Adobe Sign</span>
+          <span class="int-example">HelloSign</span>
+        </div>
+      </div>
+
+      <div class="int-category">
+        <div class="int-cat-icon">📱</div>
+        <div class="int-cat-title">SMS & Messaging</div>
+        <div class="int-cat-desc">Automated two-way SMS for client intake reminders, document request nudges, and status updates — keeping clients engaged without manual follow-up.</div>
+        <div class="int-cat-examples">
+          <span class="int-example">Twilio</span>
+          <span class="int-example">MessageBird</span>
+          <span class="int-example">Bandwidth</span>
+        </div>
+      </div>
+
+      <div class="int-category">
+        <div class="int-cat-icon">📧</div>
+        <div class="int-cat-title">Email Delivery</div>
+        <div class="int-cat-desc">Transactional and campaign emails — welcome messages, portal links, document checklists, and deadline alerts — delivered reliably at scale.</div>
+        <div class="int-cat-examples">
+          <span class="int-example">SendGrid</span>
+          <span class="int-example">Mailgun</span>
+          <span class="int-example">Postmark</span>
+        </div>
+      </div>
+
+      <div class="int-category">
+        <div class="int-cat-icon">🤖</div>
+        <div class="int-cat-title">AI & Document Intelligence</div>
+        <div class="int-cat-desc">Advanced AI models extract diagnosis codes, treatment timelines, specialist findings, and injury severity from complex medical and legal documents automatically.</div>
+        <div class="int-cat-examples">
+          <span class="int-example">Vertex AI</span>
+          <span class="int-example">Document AI</span>
+          <span class="int-example">MedLM</span>
+        </div>
+      </div>
+
+      <div class="int-category">
+        <div class="int-cat-icon">🔑</div>
+        <div class="int-cat-title">Identity & Authentication</div>
+        <div class="int-cat-desc">SSO and MFA via your existing identity provider. Clients authenticate through a secure, scoped portal. Staff access is governed by RBAC and enforced org-wide.</div>
+        <div class="int-cat-examples">
+          <span class="int-example">Google Workspace</span>
+          <span class="int-example">Microsoft 365</span>
+          <span class="int-example">Okta</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CTA ══════════════════════ -->
+<section class="section cta-section" id="demo">
+  <div class="container">
+    <div class="cta-inner">
+      <p class="eyebrow">Get Started</p>
+      <h2>Ready to scale your practice?</h2>
+      <p>Join forward-thinking mass tort firms using SimpleTort to process more cases, reduce errors, and close settlements faster — without growing headcount.</p>
+      <div class="cta-form">
+        <input type="email" placeholder="Enter your work email" />
+        <button class="btn btn-primary">Request Demo</button>
+      </div>
+      <p class="cta-note">No commitment required &nbsp;·&nbsp; Setup in days, not months &nbsp;·&nbsp; HIPAA-compliant from day one</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="display:flex;align-items:center;gap:10px;">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="19" cy="19" r="18" stroke="#5BBCD6" stroke-width="1.5" fill="rgba(91,188,214,0.08)"/>
+            <line x1="19" y1="10" x2="19" y2="28" stroke="#5BBCD6" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="11" y1="14" x2="27" y2="14" stroke="#5BBCD6" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M11 14 L8 19 Q11 21.5 14 19 Z" stroke="#5BBCD6" stroke-width="1.2" fill="rgba(91,188,214,0.18)"/>
+            <path d="M27 14 L24 19 Q27 21.5 30 19 Z" stroke="#5BBCD6" stroke-width="1.2" fill="rgba(91,188,214,0.18)"/>
+            <line x1="15" y1="28" x2="23" y2="28" stroke="#5BBCD6" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span class="nav-logo-text">Simple<span>Tort</span>™</span>
+        </a>
+        <p>The intelligent litigation management platform for high-volume plaintiff law firms. Built for scale, designed for simplicity.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <a href="#features">Features</a>
+        <a href="#workflow">How It Works</a>
+        <a href="#outcomes">Outcomes</a>
+        <a href="#security">Security</a>
+        <a href="#integrations">Integrations</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">About Us</a>
+        <a href="#">Our Team</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">HIPAA Notice</a>
+        <a href="#">Security Policy</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SimpleTort™. All rights reserved. Proprietary &amp; Confidential.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">HIPAA</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Active nav highlighting on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? '#fff' : 'rgba(255,255,255,0.75)';
+    });
+  });
+
+  // CTA form handler
+  document.querySelector('.cta-form .btn').addEventListener('click', function() {
+    const input = document.querySelector('.cta-form input');
+    if (input.value) {
+      input.value = '';
+      input.placeholder = '✓ Thank you! We\'ll be in touch shortly.';
+      setTimeout(() => { input.placeholder = 'Enter your work email'; }, 3000);
+    }
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.outcome-card, .feature-card, .who-card, .int-category').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
